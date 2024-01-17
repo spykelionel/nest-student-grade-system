@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { InsertResult, Repository } from 'typeorm';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
+import { School } from './entities/school.entity';
+import { ISchool } from './school.interface';
 
 @Injectable()
-export class SchoolsService {
-  create(createSchoolDto: CreateSchoolDto) {
-    return 'This action adds a new school';
+export class SchoolsService implements ISchool {
+  constructor(
+    @InjectRepository(School)
+    private readonly schoolRepository: Repository<School>,
+  ) {}
+  create(createSchoolDto: CreateSchoolDto): Promise<InsertResult | any> {
+    return this.schoolRepository.insert(createSchoolDto);
   }
-
-  findAll() {
-    return `This action returns all schools`;
+  findAll(): Promise<[] | School[]> {
+    return this.schoolRepository.find();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} school`;
+  findOne(id: number): Promise<{} | School> {
+    return this.schoolRepository.findOne({ where: { id } });
   }
-
-  update(id: number, updateSchoolDto: UpdateSchoolDto) {
-    return `This action updates a #${id} school`;
+  update(id: number, updateSchoolDto: UpdateSchoolDto): Promise<any> {
+    return this.schoolRepository.update(id, updateSchoolDto);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} school`;
+  remove(id: number): Promise<unknown> {
+    return this.schoolRepository.delete(id);
   }
 }
