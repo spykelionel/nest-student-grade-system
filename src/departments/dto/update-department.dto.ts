@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateDepartmentDto } from './create-department.dto';
+import { z } from 'zod';
 
-export class UpdateDepartmentDto extends PartialType(CreateDepartmentDto) {}
+export const UpdateDepartmentSchema = z
+  .object({
+    name: z.string(),
+  })
+  .required();
+
+export type UpdateDepartmentDto = z.infer<typeof UpdateDepartmentSchema>;
