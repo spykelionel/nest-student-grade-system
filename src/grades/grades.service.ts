@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, InsertResult, Repository } from 'typeorm';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
+import { Grade } from './entities/grade.entity';
+import { IGrade } from './grade.interface';
 
 @Injectable()
-export class GradesService {
-  create(createGradeDto: CreateGradeDto) {
-    return 'This action adds a new grade';
-  }
+export class GradesService implements IGrade {
+  constructor(
+    @InjectRepository(Grade)
+    private readonly gradeRepository: Repository<Grade>,
+  ) {}
 
-  findAll() {
-    return `This action returns all grades`;
+  create(createGradeDto: CreateGradeDto): Promise<InsertResult> {
+    return this.gradeRepository.insert(createGradeDto);
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} grade`;
+  findAll(): Promise<[] | Grade[]> {
+    return this.gradeRepository.find();
   }
-
-  update(id: number, updateGradeDto: UpdateGradeDto) {
-    return `This action updates a #${id} grade`;
+  findOne(id: number): Promise<{} | Grade> {
+    return this.gradeRepository.findOne({ where: { id } });
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} grade`;
+  update(id: number, updateGradeDto: UpdateGradeDto): Promise<any> {
+    return this.gradeRepository.update(id, updateGradeDto);
+  }
+  remove(id: number): Promise<DeleteResult> {
+    return this.gradeRepository.delete(id);
   }
 }
