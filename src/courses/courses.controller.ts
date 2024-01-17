@@ -8,11 +8,13 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from 'src/util/ValidationSchema';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto, createCourseSchema } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
+@ApiTags('Courses')
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}

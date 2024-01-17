@@ -8,11 +8,12 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from 'src/util/ValidationSchema';
 import { DepartmentsService } from './departments.service';
 import { CreateDepartmentSchema } from './dto/create-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
-
+@ApiTags('Departments')
 @Controller('departments')
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
