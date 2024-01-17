@@ -1,4 +1,4 @@
-import { InsertResult, UpdateResult } from 'typeorm';
+import { DeleteResult, InsertResult, UpdateResult } from 'typeorm';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
@@ -11,5 +11,5 @@ export interface Icourse {
     id: number,
     updateCourseDto: UpdateCourseDto,
   ): Promise<UpdateResult | any>;
-  remove(id: number): Promise<string | unknown>;
+  remove(id: number): Promise<DeleteResult | any>;
 }

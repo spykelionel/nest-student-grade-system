@@ -1,4 +1,4 @@
-import { InsertResult, UpdateResult } from 'typeorm';
+import { DeleteResult, InsertResult, UpdateResult } from 'typeorm';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { Grade } from './entities/grade.entity';
@@ -11,5 +11,5 @@ export interface IGrade {
     id: number,
     updateGradeDto: UpdateGradeDto,
   ): Promise<UpdateResult | any>;
-  remove(id: number): Promise<string | unknown>;
+  remove(id: number): Promise<DeleteResult | any>;
 }

@@ -1,4 +1,4 @@
-import { InsertResult, UpdateResult } from 'typeorm';
+import { DeleteResult, InsertResult, UpdateResult } from 'typeorm';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
 import { Department } from './entities/department.entity';
@@ -11,5 +11,5 @@ export interface IDepartment {
     id: number,
     updateDepartmentDto: UpdateDepartmentDto,
   ): Promise<UpdateResult | any>;
-  remove(id: number): Promise<string | unknown>;
+  remove(id: number): Promise<DeleteResult | any>;
 }

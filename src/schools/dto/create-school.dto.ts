@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const CreateSchoolSchema = z
   .object({
-    name: z.number(),
+    name: z.string(),
   })
   .required();
 
