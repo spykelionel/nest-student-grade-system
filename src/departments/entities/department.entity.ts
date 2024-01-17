@@ -20,7 +20,10 @@ export class Department {
   @IsString()
   name: string;
 
-  @ManyToOne((_) => School, (school) => school.departments, { nullable: false })
+  @ManyToOne((_) => School, (school) => school.departments, {
+    nullable: false,
+    eager: true,
+  })
   school: School;
 
   @OneToMany((_) => Course, (course) => course.department, { eager: true })
