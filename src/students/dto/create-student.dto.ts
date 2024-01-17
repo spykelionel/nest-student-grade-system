@@ -4,8 +4,8 @@ export const CreateStudentSchema = z
   .object({
     name: z.string(),
     address: z.string(),
-    department: z.number(),
-    school: z.number(),
+    department: z.any(),
+    school: z.any(),
   })
   .required();
 
