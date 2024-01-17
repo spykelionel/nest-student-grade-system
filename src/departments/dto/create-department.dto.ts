@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const CreateDepartmentSchema = z
   .object({
     name: z.string(),
-    school: z.number(),
+    school: z.string(),
   })
   .required();
 
