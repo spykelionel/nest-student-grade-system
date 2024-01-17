@@ -5,7 +5,7 @@ export const dataSourceOptions: DataSourceOptions = {
   host: 'localhost',
   username: 'root',
   password: 'password',
-  database: 'studentis',
+  database: 'studentgs',
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/db/migrations/*.js'],
 };
