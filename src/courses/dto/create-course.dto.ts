@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const createCourseSchema = z
   .object({
     name: z.string(),
-    department: z.number(),
+    department: z.any(),
   })
   .required();
 
