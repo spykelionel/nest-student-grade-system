@@ -1,13 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { GradesService } from './grades.service';
-import { CreateGradeDto } from './dto/create-grade.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
+import { ZodValidationPipe } from 'src/util/ValidationSchema';
+import { CreateGradeDto, CreateGradeSchema } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
+import { GradesService } from './grades.service';
 
 @Controller('grades')
 export class GradesController {
   constructor(private readonly gradesService: GradesService) {}
 
   @Post()
+  @UsePipes(new ZodValidationPipe(CreateGradeSchema))
   create(@Body() createGradeDto: CreateGradeDto) {
     return this.gradesService.create(createGradeDto);
   }

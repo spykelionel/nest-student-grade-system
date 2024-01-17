@@ -1,13 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SchoolsService } from './schools.service';
-import { CreateSchoolDto } from './dto/create-school.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
+import { ZodValidationPipe } from 'src/util/ValidationSchema';
+import { CreateSchoolDto, CreateSchoolSchema } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
+import { SchoolsService } from './schools.service';
 
 @Controller('schools')
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}
 
   @Post()
+  @UsePipes(new ZodValidationPipe(CreateSchoolSchema))
   create(@Body() createSchoolDto: CreateSchoolDto) {
     return this.schoolsService.create(createSchoolDto);
   }

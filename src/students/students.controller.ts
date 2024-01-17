@@ -6,8 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UsePipes,
 } from '@nestjs/common';
-import { CreateStudentDto } from './dto/create-student.dto';
+import { ZodValidationPipe } from 'src/util/ValidationSchema';
+import {
+  CreateStudentDto,
+  CreateStudentSchema,
+} from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { StudentsService } from './students.service';
 
@@ -16,6 +21,7 @@ export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Post()
+  @UsePipes(new ZodValidationPipe(CreateStudentSchema))
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);
   }

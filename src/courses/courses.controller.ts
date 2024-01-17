@@ -1,6 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
+import { ZodValidationPipe } from 'src/util/ValidationSchema';
 import { CoursesService } from './courses.service';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CreateCourseDto, createCourseSchema } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Controller('courses')
@@ -8,6 +18,7 @@ export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
+  @UsePipes(new ZodValidationPipe(createCourseSchema))
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.coursesService.create(createCourseDto);
   }
@@ -23,6 +34,7 @@ export class CoursesController {
   }
 
   @Patch(':id')
+  @UsePipes(new ZodValidationPipe(createCourseSchema))
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.coursesService.update(+id, updateCourseDto);
   }
