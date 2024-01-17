@@ -8,6 +8,7 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -25,7 +26,9 @@ export class Student {
   @IsString()
   address: string;
 
-  @ManyToOne((_) => Department, (department) => department.students)
+  @ManyToOne((_) => Department, (department) => department.students, {
+    eager: true,
+  })
   department: Department;
 
   @ManyToOne((_) => School, (school) => school.students)
@@ -35,11 +38,8 @@ export class Student {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
   })
-  courses?: Course[];
+  courses: Course[];
 
-  @ManyToMany(() => Grade, (grade) => grade.students, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
-  grades?: Grade[];
+  @OneToMany(() => Grade, (grade) => grade.student, { eager: true })
+  grades: Grade[];
 }

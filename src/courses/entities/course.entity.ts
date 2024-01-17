@@ -7,6 +7,7 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -21,18 +22,13 @@ export class Course {
 
   @ManyToOne((_) => Department, (department) => department.courses, {
     nullable: false,
+    eager: true,
   })
   department: Department;
 
-  @ManyToMany(() => Student, (student) => student.courses, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
+  @ManyToMany(() => Student, (student) => student.courses)
   students?: Student[];
 
-  @ManyToMany(() => Grade, (grade) => grade.courses, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
-  grades?: Grade;
+  @OneToMany(() => Grade, (grade) => grade.course)
+  grade: Grade;
 }

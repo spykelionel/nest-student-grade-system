@@ -13,7 +13,16 @@ export class GradesService implements IGrade {
     private readonly gradeRepository: Repository<Grade>,
   ) {}
 
-  create(createGradeDto: CreateGradeDto): Promise<InsertResult> {
+  async create(createGradeDto: CreateGradeDto): Promise<InsertResult> {
+    const { course, student } = createGradeDto;
+
+    try {
+      const studentHasGradeForCourse = await this.gradeRepository.findOne({
+        where: { course, student },
+      });
+      console.log(studentHasGradeForCourse);
+    } catch (error) {}
+
     return this.gradeRepository.insert(createGradeDto);
   }
   findAll(): Promise<[] | Grade[]> {

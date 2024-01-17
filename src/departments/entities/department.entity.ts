@@ -26,7 +26,7 @@ export class Department {
   })
   school: School;
 
-  @OneToMany((_) => Course, (course) => course.department, { eager: true })
+  @OneToMany((_) => Course, (course) => course.department)
   courses?: Course[];
 
   @OneToMany((_) => Student, (student) => student.department)

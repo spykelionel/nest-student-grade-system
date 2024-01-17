@@ -1,7 +1,7 @@
 import { IsNumber } from 'class-validator';
 import { Course } from 'src/courses/entities/course.entity';
 import { Student } from 'src/students/entities/student.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Grade {
@@ -13,17 +13,11 @@ export class Grade {
   @IsNumber()
   grade: number;
 
-  @ManyToMany(() => Course, (course) => course.grades, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
-  courses?: Course;
+  @ManyToOne(() => Course, (course) => course.grade, { eager: true })
+  course: Course;
 
-  @ManyToMany(() => Student, (student) => student.grades, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
-  students?: Student;
+  @ManyToOne(() => Student, (student) => student.grades)
+  student: Student;
 }
 
 // many students can have same grade
