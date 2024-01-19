@@ -12,6 +12,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+/**
+ * A model representation of a Student object
+ */
 @Entity()
 export class Student {
   @PrimaryGeneratedColumn()
