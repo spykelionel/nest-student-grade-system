@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Icourse } from './course.interface';
+import { ICourse } from './course.interface';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
 
 @Injectable()
-export class CoursesService implements Icourse {
+export class CoursesService implements ICourse {
   constructor(
     @InjectRepository(Course)
     private readonly courseRepository: Repository<Course>,
